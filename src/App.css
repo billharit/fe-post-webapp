@@ -1,38 +1,57 @@
-.App {
-  text-align: center;
+@tailwind base;
+
+@tailwind components;
+
+@tailwind utilities;
+
+@font-face {
+    font-family: Inter;
+    src: url('../public/font/Inter-VariableFont_slnt\,wght.ttf');
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+*{
+    font-family: Inter;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+  /* #region  /**=========== Typography =========== */
+  .h0 {
+    @apply text-3xl font-bold md:text-5xl;
   }
-}
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+  h1,
+  .h1 {
+    @apply text-2xl font-bold md:text-4xl;
   }
-  to {
-    transform: rotate(360deg);
+
+  h2,
+  .h2 {
+    @apply text-xl font-bold md:text-3xl;
   }
-}
+
+  h3,
+  .h3 {
+    @apply text-lg font-bold md:text-2xl;
+  }
+
+  h4,
+  .h4 {
+    @apply text-base font-bold md:text-lg;
+  }
+
+  body,
+  .p {
+    @apply text-sm md:text-base;
+  }
+
+   /* #endregion  /**======== Typography =========== */
+
+
+   .layout {
+    /* 1100px */
+    max-width: 68.75rem;
+    @apply mx-auto w-11/12;
+  }
+
+  .min-h-main {
+    @apply min-h-[calc(100vh-56px)];
+  }
