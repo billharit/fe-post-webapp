@@ -28,7 +28,7 @@ const Post = () => {
         },
         {
           headers: {
-            accessToken: sessionStorage.getItem("accessToken"),
+            accessToken: localStorage.getItem("accessToken"),
           },
         }
       )
@@ -36,7 +36,10 @@ const Post = () => {
         if (response.data.error) {
           alert(response.data.error);
         } else {
-          const commentToAdd = { commentBody: newComment };
+          const commentToAdd = {
+            commentBody: newComment,
+            username: response.data.username,
+          };
           setComments([...comments, commentToAdd]);
           setNewComment("");
         }
@@ -82,10 +85,18 @@ const Post = () => {
             {comments.map((comment, key) => {
               return (
                 <div
-                  className="flex min-h-[150px] items-center border border-blue-400 rounded-lg"
+                  className="flex flex-col min-h-[150px]   border border-blue-400 rounded-lg"
                   key={key}
                 >
-                  <p className="py-4 px-8">{comment.commentBody}</p>
+                  <div className="bg-blue-800 rounded-t-lg  py-4">
+                    <label className="text-white px-4 font-semibold">
+                      <span className="font-medium">From:</span>{" "}
+                      {comment.username}
+                    </label>
+                  </div>
+                  <div className="py-4">
+                    <p className="px-4">{comment.commentBody}</p>
+                  </div>
                 </div>
               );
             })}
