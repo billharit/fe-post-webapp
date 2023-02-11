@@ -10,7 +10,11 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 function App() {
-  const [authState, setAuthState] = useState(false);
+  const [authState, setAuthState] = useState({
+    username: "",
+    id: 0,
+    status: false,
+  });
 
   useEffect(() => {
     axios
@@ -18,24 +22,64 @@ function App() {
         headers: { accessToken: localStorage.getItem("accessToken") },
       })
       .then((response) => {
-        if (response.data.error) setAuthState(false);
-        else setAuthState(true);
+        if (response.data.error)
+          setAuthState({
+            ...authState,
+            status: false,
+          });
+        else
+          setAuthState({
+            username: response.data.username,
+            id: response.data.id,
+            status: true,
+          });
       });
   }, []);
+
+  const logout = () => {
+    localStorage.removeItem("accessToken");
+    setAuthState({
+      username: "",
+      id: 0,
+      status: false,
+    });
+  };
   return (
     <div className="App">
       <AuthContext.Provider value={{ authState, setAuthState }}>
         <Router>
           <div className="shadow-sm border-b">
-            <div className="py-4 layout flex flex-row gap-8 ">
-              <Link to="/">Home</Link>
-              <Link to="/createposts">Create A Post</Link>
-              {!authState && (
-                <>
-                  <Link to="/login">Login</Link>
-                  <Link to="/registration">Register</Link>
-                </>
-              )}
+            <div className="py-2 layout flex flex-row items-center justify-between gap-8 ">
+              <div className="flex gap-4">
+                <Link to="/">Home</Link>
+                <Link to="/createposts">Create A Post</Link>
+              </div>
+              <div className="flex gap-4">
+                {!authState.status ? (
+                  <>
+                    <Link
+                      className="rounded-lg bg-blue-800 text-white py-2 px-4 "
+                      to="/login"
+                    >
+                      Login
+                    </Link>
+                    <Link
+                      className="rounded-lg bg-yellow-800 text-white py-2 px-4 "
+                      to="/registration"
+                    >
+                      Register
+                    </Link>
+                  </>
+                ) : (
+                  <button
+                    className="rounded-lg bg-red-800 text-white py-2 px-4"
+                    onClick={logout}
+                  >
+                    Logout
+                  </button>
+                )}
+                {authState.username}
+              </div>
             </div>
           </div>
           <Routes>
