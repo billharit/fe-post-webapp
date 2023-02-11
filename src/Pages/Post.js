@@ -1,12 +1,14 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
+import { AuthContext } from "../Helpers/AuthContext";
 
 const Post = () => {
   let { id } = useParams();
   const [postObject, setPostObject] = useState({});
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
+  const { authState } = useContext(AuthContext);
 
   useEffect(() => {
     axios.get(`http://localhost:3001/posts/byId/${id}`).then((Response) => {
@@ -44,6 +46,20 @@ const Post = () => {
           setNewComment("");
         }
       });
+  };
+
+  const deleteComment = (id) => {
+    axios
+      .delete(`http://localhost:3001/comments/${id}`, {
+        headers: { accessToken: localStorage.getItem("accessToken") },
+      })
+      .then(
+        setComments(
+          comments.filter((val) => {
+            return val.id != id;
+          })
+        )
+      );
   };
   return (
     <div className="layout mt-4 mb-20 min-h-main ">
@@ -88,11 +104,21 @@ const Post = () => {
                   className="flex flex-col min-h-[150px]   border border-blue-400 rounded-lg"
                   key={key}
                 >
-                  <div className="bg-blue-800 rounded-t-lg  py-4">
-                    <label className="text-white px-4 font-semibold">
+                  <div className="bg-blue-800 rounded-t-lg px-4 flex justify-between py-4">
+                    <label className="text-white  font-semibold">
                       <span className="font-medium">From:</span>{" "}
                       {comment.username}
                     </label>
+                    {authState.username === comment.username && (
+                      <button
+                        onClick={() => {
+                          deleteComment(comment.id);
+                        }}
+                        className="text-white px-2 py-2 font-semibold bg-red-600 rounded-lg hover:bg-red-500"
+                      >
+                        Delete
+                      </button>
+                    )}
                   </div>
                   <div className="py-4">
                     <p className="px-4">{comment.commentBody}</p>
