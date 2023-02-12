@@ -8,6 +8,7 @@ import Registration from "./Pages/Registration";
 import { AuthContext } from "./Helpers/AuthContext";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import Error from "./Pages/Error";
 
 function App() {
   const [authState, setAuthState] = useState({
@@ -88,6 +89,7 @@ function App() {
             <Route exact path="/" element={<Home />} />
             <Route exact path="/createposts" element={<CreatePosts />} />
             <Route exact path="/post/:id" element={<Posts />} />
+            <Route path="*" exact element={<Error />} />
           </Routes>
         </Router>
       </AuthContext.Provider>
