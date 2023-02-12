@@ -1,27 +1,36 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../Helpers/AuthContext";
 
 const CreatePosts = () => {
+  let navigate = useNavigate();
+  const { authState } = useContext(AuthContext);
+  useEffect(() => {
+    if (!authState.status && !localStorage.getItem("accessToken")) {
+      navigate("/login");
+    }
+  }, []);
   const initialValues = {
     title: "",
     postText: "",
-    username: "",
   };
 
   const validationSchema = Yup.object().shape({
     title: Yup.string().required(),
     postText: Yup.string().max(256).required(),
-    username: Yup.string().min(3).max(15).required(),
   });
-  const navigate = useNavigate();
   const onSubmit = (data) => {
-    // console.log(data);
-    axios.post("http://localhost:3001/posts", data).then((response) => {
-      navigate("/");
-    });
+    // const data = [...data,]
+    axios
+      .post("http://localhost:3001/posts", data, {
+        headers: { accessToken: localStorage.getItem("accessToken") },
+      })
+      .then((response) => {
+        navigate("/");
+      });
   };
   return (
     <div className="mt-4">
@@ -63,21 +72,7 @@ const CreatePosts = () => {
               placeholder="( Ex. PostText Asd... )"
             />
           </div>
-          <div className="flex flex-col space-y-2">
-            <label htmlFor="">Username:</label>
-            <ErrorMessage
-              className="text-red-700"
-              name="username"
-              component="span"
-            />
-            <Field
-              className="px-4 py-2 border border-gray-600"
-              name="username"
-              id="username"
-              type="text"
-              placeholder="( Ex. username Asd... )"
-            />
-          </div>
+
           <button
             type="submit"
             className="bg-blue-600 hover:bg-blue-700 p-4 text-gray-200 hover:text-white text-center rounded-sm"

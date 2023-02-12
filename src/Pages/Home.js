@@ -1,15 +1,22 @@
 import React from "react";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AiFillLike } from "react-icons/ai";
+import { AuthContext } from "../Helpers/AuthContext";
 
 const Home = () => {
   const [listOfPosts, setListOfPosts] = useState([]);
+  const { authState } = useContext(AuthContext);
+
   let navigate = useNavigate();
   useEffect(() => {
+    if (!authState.status && !localStorage.getItem("accessToken")) {
+      // navigate("/login");
+    }
     axios.get("http://localhost:3001/posts").then((response) => {
       setListOfPosts(response.data);
+      console.log(authState.status);
     });
   }, []);
   const likeAPost = (postId) => {
