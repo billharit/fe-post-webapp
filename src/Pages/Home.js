@@ -20,21 +20,24 @@ const Home = () => {
         { headers: { accessToken: localStorage.getItem("accessToken") } }
       )
       .then((response) => {
-        setListOfPosts(
-          listOfPosts.map((post) => {
-            if (post.id === postId) {
-              if (response.data.liked) {
-                return { ...post, Likes: [...post.Likes, 0] };
+        if (response.data.error === "User not authenticated") return;
+        else {
+          setListOfPosts(
+            listOfPosts.map((post) => {
+              if (post.id === postId) {
+                if (response.data.liked) {
+                  return { ...post, Likes: [...post.Likes, 0] };
+                } else {
+                  const likeArray = post.Likes;
+                  likeArray.pop();
+                  return { ...post, Likes: likeArray };
+                }
               } else {
-                const likeArray = post.Likes;
-                likeArray.pop();
-                return { ...post, Likes: likeArray };
+                return post;
               }
-            } else {
-              return post;
-            }
-          })
-        );
+            })
+          );
+        }
       });
   };
   return (

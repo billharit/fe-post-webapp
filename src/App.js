@@ -79,7 +79,13 @@ function App() {
                     Logout
                   </button>
                 )}
-                {authState.username}
+                {authState.username && (
+                  <div className="border cursor-pointer rounded-full py-2 px-4 flex items-center justify-center border-blue-800">
+                    <span className="text-lg font-bold text-blue-600">
+                      {authState.username[0].toUpperCase()}
+                    </span>
+                  </div>
+                )}
               </div>
             </div>
           </div>

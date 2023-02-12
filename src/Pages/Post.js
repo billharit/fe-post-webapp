@@ -22,21 +22,23 @@ const Post = () => {
   }, []);
 
   const likeAPost = (id) => {
-    axios
-      .post(
-        "http://localhost:3001/likes",
-        { postId: id },
-        { headers: { accessToken: localStorage.getItem("accessToken") } }
-      )
-      .then((response) => {
-        if (response.data.liked) {
-          setPostObject({ ...postObject, Likes: [...postObject.Likes, 0] });
-        } else {
-          const UnlikePost = postObject.Likes;
-          UnlikePost.pop();
-          setPostObject({ ...postObject, Likes: UnlikePost });
-        }
-      });
+    if (authState.status) {
+      axios
+        .post(
+          "http://localhost:3001/likes",
+          { postId: id },
+          { headers: { accessToken: localStorage.getItem("accessToken") } }
+        )
+        .then((response) => {
+          if (response.data.liked) {
+            setPostObject({ ...postObject, Likes: [...postObject.Likes, 0] });
+          } else {
+            const UnlikePost = postObject.Likes;
+            UnlikePost.pop();
+            setPostObject({ ...postObject, Likes: UnlikePost });
+          }
+        });
+    }
   };
   const addComment = () => {
     axios
