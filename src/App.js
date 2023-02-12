@@ -9,6 +9,7 @@ import { AuthContext } from "./Helpers/AuthContext";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Error from "./Pages/Error";
+import Profile from "./Pages/Profile";
 
 function App() {
   const [authState, setAuthState] = useState({
@@ -80,11 +81,13 @@ function App() {
                   </button>
                 )}
                 {authState.username && (
-                  <div className="border cursor-pointer rounded-full py-2 px-4 flex items-center justify-center border-blue-800">
-                    <span className="text-lg font-bold text-blue-600">
-                      {authState.username[0].toUpperCase()}
-                    </span>
-                  </div>
+                  <Link to={`/profile/${authState.id}`}>
+                    <div className="border cursor-pointer rounded-full py-2 px-4 flex items-center justify-center border-blue-800">
+                      <span className="text-lg font-bold text-blue-600">
+                        {authState.username[0].toUpperCase()}
+                      </span>
+                    </div>
+                  </Link>
                 )}
               </div>
             </div>
@@ -95,6 +98,7 @@ function App() {
             <Route exact path="/" element={<Home />} />
             <Route exact path="/createposts" element={<CreatePosts />} />
             <Route exact path="/post/:id" element={<Posts />} />
+            <Route exact path="/profile/:id" element={<Profile />} />
             <Route path="*" exact element={<Error />} />
           </Routes>
         </Router>

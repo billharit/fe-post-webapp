@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { useEffect, useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AiFillLike } from "react-icons/ai";
 import { AuthContext } from "../Helpers/AuthContext";
 
@@ -64,7 +64,9 @@ const Home = () => {
                 {value.postText}
               </div>
               <div className="py-4 px-8 bg-blue-800 flex items-center justify-between text-white rounded-b-lg">
-                <span>{value.username}</span>
+                <Link to={`/profile/${value.UserId}`}>
+                  <span>{value.username}</span>
+                </Link>
                 <div className="flex gap-2 items-center">
                   <AiFillLike
                     size={20}
