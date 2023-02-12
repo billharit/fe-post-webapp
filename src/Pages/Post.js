@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState, useContext } from "react";
 import { AiFillLike } from "react-icons/ai";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../Helpers/AuthContext";
 
 const Post = () => {
@@ -10,6 +11,7 @@ const Post = () => {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
   const { authState } = useContext(AuthContext);
+  let navigate = useNavigate();
 
   useEffect(() => {
     axios.get(`http://localhost:3001/posts/byId/${id}`).then((Response) => {
@@ -81,6 +83,16 @@ const Post = () => {
         )
       );
   };
+
+  const deletePost = (id) => {
+    axios
+      .delete(`http://localhost:3001/posts/${id}`, {
+        headers: { accessToken: localStorage.getItem("accessToken") },
+      })
+      .then((response) => {
+        navigate("/");
+      });
+  };
   return (
     <div className="layout mt-4 mb-20 min-h-main ">
       <div>
@@ -104,6 +116,18 @@ const Post = () => {
             </div>
           </div>
         </div>
+      </div>
+      <div className="mt-4">
+        {postObject.username === authState.username && (
+          <button
+            onClick={() => {
+              deletePost(postObject.id);
+            }}
+            className="rounded-lg bg-red-800 text-white py-2 px-4"
+          >
+            Delete Post
+          </button>
+        )}
       </div>
       <div className="mt-8">
         <div className="flex justify-center">

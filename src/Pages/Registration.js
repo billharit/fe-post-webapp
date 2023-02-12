@@ -14,9 +14,7 @@ const Registration = () => {
     password: Yup.string().min(4).max(20).required(),
   });
   const onSubmit = (data) => {
-    axios.post("http://localhost:3001/auth", data).then(() => {
-      console.log(data);
-    });
+    axios.post("http://localhost:3001/auth", data).then(() => {});
   };
   return (
     <div className="layout mt-4">

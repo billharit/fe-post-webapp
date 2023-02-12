@@ -27,7 +27,6 @@ const Login = () => {
           });
           navigate("/");
         }
-        // console.log(Response.data);
       });
   };
   return (

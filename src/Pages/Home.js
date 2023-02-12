@@ -12,11 +12,10 @@ const Home = () => {
   let navigate = useNavigate();
   useEffect(() => {
     if (!authState.status && !localStorage.getItem("accessToken")) {
-      // navigate("/login");
+      navigate("/login");
     }
     axios.get("http://localhost:3001/posts").then((response) => {
       setListOfPosts(response.data);
-      console.log(authState.status);
     });
   }, []);
   const likeAPost = (postId) => {
