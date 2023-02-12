@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState, useContext } from "react";
+import { AiFillLike } from "react-icons/ai";
 import { useParams } from "react-router-dom";
 import { AuthContext } from "../Helpers/AuthContext";
 
@@ -20,6 +21,23 @@ const Post = () => {
     });
   }, []);
 
+  const likeAPost = (id) => {
+    axios
+      .post(
+        "http://localhost:3001/likes",
+        { postId: id },
+        { headers: { accessToken: localStorage.getItem("accessToken") } }
+      )
+      .then((response) => {
+        if (response.data.liked) {
+          setPostObject({ ...postObject, Likes: [...postObject.Likes, 0] });
+        } else {
+          const UnlikePost = postObject.Likes;
+          UnlikePost.pop();
+          setPostObject({ ...postObject, Likes: UnlikePost });
+        }
+      });
+  };
   const addComment = () => {
     axios
       .post(
@@ -71,9 +89,18 @@ const Post = () => {
           <div className="py-4 px-8 min-h-[300px] flex justify-center items-center">
             <p className="text-center">{postObject.postText}</p>
           </div>
-          <h4 className="py-4 px-8 bg-blue-800 text-white rounded-b-lg">
-            {postObject.username}
-          </h4>
+          <div className="py-4 text-white px-8 bg-blue-800 flex items-center justify-between">
+            <h4 className="  rounded-b-lg">{postObject.username}</h4>
+            <div className="flex gap-2 items-center">
+              <AiFillLike
+                size={25}
+                onClick={() => {
+                  likeAPost(postObject.id);
+                }}
+              />
+              <span>{postObject.Likes?.length}</span>
+            </div>
+          </div>
         </div>
       </div>
       <div className="mt-8">
