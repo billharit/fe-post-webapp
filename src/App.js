@@ -10,6 +10,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Error from "./Pages/Error";
 import Profile from "./Pages/Profile";
+import ChangePassword from "./Pages/ChangePassword";
 
 function App() {
   const [authState, setAuthState] = useState({
@@ -90,21 +91,6 @@ function App() {
                       <span className="text-lg  font-bold text-blue-600 hover:text-blue-500">
                         {authState.username[0].toUpperCase()}
                       </span>
-                      {/* <svg
-                      className="h-6 w-6"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      aria-hidden="true"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
-                      />
-                    </svg> */}
                     </button>
                     {navbar && (
                       <div className=" relative">
@@ -136,7 +122,7 @@ function App() {
                               Your Profile
                             </span>
                           </Link>
-                          <Link to={`/profile/${authState.id}`}>
+                          <Link to={`/changepassword`}>
                             <span
                               href="#"
                               className="block px-4 py-2 text-sm text-gray-700"
@@ -170,6 +156,9 @@ function App() {
             <Route exact path="/createposts" element={<CreatePosts />} />
             <Route exact path="/post/:id" element={<Posts />} />
             <Route exact path="/profile/:id" element={<Profile />} />
+            <Route exact path="/profile/:id" element={<Profile />} />
+            <Route exact path="/changepassword" element={<ChangePassword />} />
+
             <Route path="*" exact element={<Error />} />
           </Routes>
         </Router>
