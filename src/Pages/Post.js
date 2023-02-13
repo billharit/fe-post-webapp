@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState, useContext } from "react";
-import { AiFillLike } from "react-icons/ai";
+import { AiFillEdit, AiFillLike } from "react-icons/ai";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../Helpers/AuthContext";
@@ -93,14 +93,54 @@ const Post = () => {
         navigate("/");
       });
   };
+
+  const editPost = (option) => {
+    if (option === "title") {
+      let newTitle = prompt("Enter New Title:");
+      axios
+        .put(
+          `http://localhost:3001/posts/title`,
+          { newTitle: newTitle, id: id },
+          { headers: { accessToken: localStorage.getItem("accessToken") } }
+        )
+        .then((response) => {
+          setPostObject({ ...postObject, title: newTitle });
+        });
+    } else {
+      let newText = prompt("Enter New Post Content:");
+      axios
+        .put(
+          `http://localhost:3001/posts/postText`,
+          { newText: newText, id: id },
+          { headers: { accessToken: localStorage.getItem("accessToken") } }
+        )
+        .then((response) => {
+          setPostObject({ ...postObject, postText: newText });
+        });
+    }
+  };
   return (
     <div className="layout mt-4 mb-20 min-h-main ">
       <div>
         <div className="border shadow-md transition-all duration-300 hover:shadow-xl">
-          <h1 className="py-4 px-8 text-center bg-blue-800 text-white rounded-t-lg">
-            {postObject.title}
-          </h1>
-          <div className="py-4 px-8 min-h-[300px] flex justify-center items-center">
+          <div className="py-4 px-8 flex justify-between items-center bg-blue-800 text-white rounded-t-lg">
+            <h1 className="text-center ">{postObject.title}</h1>
+            {postObject.username === authState.username && (
+              <AiFillEdit
+                size={30}
+                className="cursor-pointer"
+                onClick={() => {
+                  editPost("title");
+                }}
+              />
+            )}
+          </div>
+          <div
+            onClick={() => {
+              if (postObject.username === authState.username) editPost("body");
+            }}
+            className="cursor-pointer py-4 px-8 min-h-[300px] flex justify-center items-center"
+          >
             <p className="text-center">{postObject.postText}</p>
           </div>
           <div className="py-4 text-white px-8 bg-blue-800 flex items-center justify-between">
