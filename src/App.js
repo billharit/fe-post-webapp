@@ -18,7 +18,14 @@ function App() {
     status: false,
   });
 
+  const [navbar, setNavbar] = useState(false);
+
+  const toggleNavbar = () => {
+    setNavbar(!navbar);
+  };
+
   useEffect(() => {
+    setNavbar(false);
     axios
       .get("http://localhost:3001/auth/auth", {
         headers: { accessToken: localStorage.getItem("accessToken") },
@@ -57,7 +64,7 @@ function App() {
                 <Link to="/createposts">Create A Post</Link>
               </div>
               <div className="flex gap-4">
-                {!authState.status ? (
+                {!authState.status && (
                   <>
                     <Link
                       className="rounded-lg bg-blue-800 text-white py-2 px-4 "
@@ -72,22 +79,86 @@ function App() {
                       Register
                     </Link>
                   </>
-                ) : (
-                  <button
-                    className="rounded-lg bg-red-800 text-white py-2 px-4"
-                    onClick={logout}
-                  >
-                    Logout
-                  </button>
                 )}
+
                 {authState.username && (
-                  <Link to={`/profile/${authState.id}`}>
-                    <div className="border cursor-pointer rounded-full py-2 px-4 flex items-center justify-center border-blue-800">
-                      <span className="text-lg font-bold text-blue-600">
+                  <div className="flex items-center">
+                    <button
+                      onClick={toggleNavbar}
+                      className="border-blue-800 border  py-2 px-4 cursor-pointer flex items-center justify-center rounded-full text-gray-400 hover:text-white "
+                    >
+                      <span className="text-lg  font-bold text-blue-600 hover:text-blue-500">
                         {authState.username[0].toUpperCase()}
                       </span>
-                    </div>
-                  </Link>
+                      {/* <svg
+                      className="h-6 w-6"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      aria-hidden="true"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+                      />
+                    </svg> */}
+                    </button>
+                    {navbar && (
+                      <div className=" relative">
+                        <div>
+                          <button
+                            type="button"
+                            className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+                            id="user-menu-button"
+                            aria-expanded="false"
+                            aria-haspopup="true"
+                          >
+                            <span className="sr-only">Open user menu</span>
+                          </button>
+                        </div>
+
+                        <div
+                          className="origin-top-right absolute right-0 mt-6 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+                          role="menu"
+                          aria-orientation="vertical"
+                          aria-labelledby="user-menu-button"
+                        >
+                          <Link to={`/profile/${authState.id}`}>
+                            <span
+                              href="#"
+                              className="block px-4 py-2 text-sm text-gray-700"
+                              role="menuitem"
+                              id="user-menu-item-0"
+                            >
+                              Your Profile
+                            </span>
+                          </Link>
+                          <Link to={`/profile/${authState.id}`}>
+                            <span
+                              href="#"
+                              className="block px-4 py-2 text-sm text-gray-700"
+                              role="menuitem"
+                              id="user-menu-item-1"
+                            >
+                              Change Password
+                            </span>
+                          </Link>
+                          <span
+                            onClick={logout}
+                            href="#"
+                            className="block cursor-pointer px-4 py-2 text-sm text-gray-700"
+                            role="menuitem"
+                            id="user-menu-item-2"
+                          >
+                            Sign out
+                          </span>
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 )}
               </div>
             </div>
