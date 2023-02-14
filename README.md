@@ -1,70 +1,41 @@
-# Getting Started with Create React App
+# React Fullstack Post App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This Project was made by following tutorial from [PedroTech Fullstack Development Course](https://www.youtube.com/playlist?list=PLpPqplz6dKxUaZ630TY1BFIo5nP-_x-nL) for learning purposes. The project is about building a text Post social media application from scratch.
 
-## Available Scripts
+[(FE Repo Link)](https://github.com/billharit/fe-post-webapp)
+[(BE Repo Link)](https://github.com/billharit/be-post-webapp)
 
-In the project directory, you can run:
+## What I've Learned
 
-### `yarn start`
+I recently took a full-stack web development course on YouTube that covered ReactJS, NodeJS, Express, and MySQL. I learned a lot from this course and I wanted to take some time to reflect on what I learned. Here's a list of the key things I gained from this course:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Learn sequelize to make model for mysql database
+- Learn using router in sequelize for CRUD on the back-end
+- Learn authentication from back-end to have a middleware on auth-needed router
+- Learn hashing password with bcrypt hash and bcrypt compare
+- Review React library for front-end
+- Learn useEffect and useContext
+- Learn authentication in front-end with data saved on localStorage
+- Learn about formik for form and yup for validation
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Sequelize
 
-### `yarn test`
+I learned how to use Sequelize, a NodeJS ORM (Object-Relational Mapping) library, to connect to and interact with a MySQL database. With Sequelize, I was able to define my database models and perform CRUD operations with ease.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Routers & Authentication
 
-### `yarn build`
+I gained a deeper understanding of how to handle routing and authentication in a full-stack web application. I learned how to create middleware in Express to protect routes that require authentication and how to implement authentication both on the back-end and front-end.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Hashing Passwords
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+I learned about the importance of securely storing user passwords in a database and how to use bcrypt to hash passwords before storing them. I also learned how to compare hashed passwords during authentication to ensure the security of user data.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### ReactJS
 
-### `yarn eject`
+I reviewed ReactJS and learned about features such as useEffect and useContext. I gained a better understanding of how ReactJS works and how to build dynamic and interactive user interfaces.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Forms & Validation
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+I learned about formik, a library for handling forms in React, and yup, a library for form validation. I gained hands-on experience building forms and implementing validation to ensure the accuracy and completeness of user input.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Overall, I feel like I've gained a solid foundation in full-stack web development and I'm excited to continue learning and building more web applications.
